@@ -17,17 +17,17 @@ set grid
 
 set key left bottom
 #------------------------------------------------------------------------
-# set title 'srednie polozenie x(t)'
-# set xlabel 't'
-# set ylabel 'x_{s'
-# plot 'ct_d0.dat' u 1:3 w l lt -1 lw 2 t 'x_{sr}(D=0)',\
-#      'ct_d01.dat' u 1:3 w l lt 7 lw 2 t 'x_{sr}(D=0.1)'
+set title 'srednie polozenie x(t)'
+set xlabel 't'
+set ylabel 'x_{s'
+plot 'ct_d0.dat' u 1:3 w l lt -1 lw 2 t 'x_{sr}(D=0)',\
+     'ct_d01.dat' u 1:3 w l lt 7 lw 2 t 'x_{sr}(D=0.1)'
 # #------------------------------------------------------------------------
-# set title 'calka gestosci c(t) '
-# set xlabel 't'
-# set ylabel 'c(t)'
-# plot 'ct_d0.dat' u 1:2 w l lt  4 lw 2 t 'c(D=0)',\
-#      'ct_d01.dat' u 1:2 w l lt 6 lw 2 t 'c(D=0.1)'
+set title 'calka gestosci c(t) '
+set xlabel 't'
+set ylabel 'c(t)'
+plot 'ct_d0.dat' u 1:2 w l lt  4 lw 2 t 'c(D=0)',\
+     'ct_d01.dat' u 1:2 w l lt 6 lw 2 t 'c(D=0.1)'
 
 
 #------------------------------------------------------------------------
