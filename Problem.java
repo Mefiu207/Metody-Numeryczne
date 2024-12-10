@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public class Problem extends Thread{
     
-    public static Integer IT_MAX = 500;
+    private String nameOfaFile;
+
+    public static Integer IT_MAX = 1000;
     
     private Double D;
 
@@ -43,7 +45,10 @@ public class Problem extends Thread{
 
 
 
-    public Problem(Double Dval){
+    public Problem(Double Dval, String fileName){
+        
+        nameOfaFile = fileName;
+        
         D = Dval;
         
         delta = 0.01;
@@ -223,13 +228,12 @@ public class Problem extends Thread{
     // Main iterating function
     private void picardIter(){
         setU0();
+         
+        File myFile = new File(nameOfaFile);
+        myFile.delete();
 
-        Integer kTab[] = {1, 2, 3, 4, 5};
-
-        Double Tk[] = new Double[5];
-
-        
-
+        try {myFile.createNewFile();}
+        catch(IOException e) {e.printStackTrace();}
 
         for(int IT = 1; IT <= IT_MAX; IT++){
             u1 = u0.clone();
@@ -249,7 +253,22 @@ public class Problem extends Thread{
             calcC();
             calcXsr();
         
+            if(IT == IT_MAX/5 || IT == 2*IT_MAX/5 || IT == 3*IT_MAX/5 || IT == 4*IT_MAX/5 || IT == 5*IT_MAX/5){
+                
+                try{
+                    FileWriter writeFile = new FileWriter(nameOfaFile);
+        
+                    for(int j = 0; j <= ny; j++){
+                        for(int i = 0; i <= nx; i++){
+                            writeFile.write(i + " " + j + " "+  u0[j][i] + "\n");
+                        }
+                        writeFile.write("\n");
+                    }                
+                    
+                    writeFile.close();
+                }catch(IOException e) { e.printStackTrace(); }   
 
+            }
 
 
         }
@@ -355,7 +374,7 @@ public class Problem extends Thread{
         long begin = System.nanoTime();
         long now;
 
-        Problem a1 = new Problem(0.0);
+        Problem a1 = new Problem(0.0, "u_t_d0.dat" );
         
         a1.readPsiFromFile("psi.dat");
         a1.calcV();
@@ -364,7 +383,7 @@ public class Problem extends Thread{
         System.out.println("First part is starting...");
 
 
-        Problem a2 = new Problem(0.1);
+        Problem a2 = new Problem(0.1, "u_t_d01.dat");
         a2.readPsiFromFile("psi.dat");
         a2.calcV();
 
